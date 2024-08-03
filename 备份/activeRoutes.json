@@ -1,0 +1,102 @@
+{
+    "code": 200,
+    "routes": [
+        {
+            "path": "/iot",
+            "name": "iot",
+            "meta": {
+                "title": "设备管理",
+                "icon": "dashboard-outlined",
+                "hidden": true,
+                "level": 2,
+                "id": "iot",
+                "parentId": "home"
+            },
+            "component": "RouterViewPage",
+            "redirect": "/iot/template",
+            "children": [
+                {
+                    "path": "template",
+                    "name": "iot-template",
+                    "meta": {
+                        "title": "通用物模型",
+                        "icon": "compass-outlined",
+                        "hidden": true,
+                        "level": 3,
+                        "id": "iot-template",
+                        "parentId": "iot"
+                    },
+                    "component": "@/views/iot/Template.vue"
+                },
+                {
+                    "path": "category",
+                    "name": "iot-category",
+                    "meta": {
+                        "title": "产品分类",
+                        "icon": "cluster-outlined",
+                        "hidden": true,
+                        "level": 3,
+                        "id": "iot-category",
+                        "parentId": "iot"
+                    },
+                    "component": "@/views/iot/Category.vue"
+                },
+                {
+                    "path": "product",
+                    "name": "iot-product",
+                    "meta": {
+                        "title": "产品管理",
+                        "icon": "disconnect-outlined",
+                        "hidden": true,
+                        "level": 3,
+                        "id": "iot-product",
+                        "parentId": "iot"
+                    },
+                    "component": "@/views/iot/Product.vue"
+                }
+            ]
+        },
+        {
+            "path": "/system",
+            "name": "system",
+            "meta": {
+                "title": "系统管理",
+                "icon": "appstore-outlined",
+                "hidden": true,
+                "level": 2,
+                "id": "system",
+                "parentId": "home"
+            },
+            "component": "RouterViewPage",
+            "redirect": "/system/user",
+            "children": [
+                {
+                    "path": "user",
+                    "name": "system-user",
+                    "meta": {
+                        "title": "用户管理",
+                        "icon": "usergroup-delete-outlined",
+                        "hidden": true,
+                        "level": 3,
+                        "id": "system-user",
+                        "parentId": "system"
+                    },
+                    "component": "@/views/system/User.vue"
+                },
+                {
+                    "path": "menu",
+                    "name": "system-menu",
+                    "meta": {
+                        "title": "菜单管理",
+                        "icon": "menu-outlined",
+                        "hidden": true,
+                        "level": 3,
+                        "id": "system-menu",
+                        "parentId": "system"
+                    },
+                    "component": "@/views/system/Menu.vue"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,124 @@
+从零开始搭建一个 “管理系统”「PC端」
+1. 技术选型
+  + 优先考虑的是团队所擅长的技术栈
+  + 如果团队各技术栈都比较擅长，基于Vue开发管理系统类项目，因为双向绑定的优势，使得表单操作更便捷「当然React技术栈，可以配合现有的UI组件库，表单操作也不会很繁琐」
+  + 目前各个技术栈中，都有开源的管理系统框架
+    Vue技术栈
+      + antd vue pro  https://pro.antdv.com/ 
+        免费版：vue@2 + ant-design-vue@1 + @vue/cli
+        收费版：vue@3 + TS + ant-design-vue
+      + 若依  https://ruoyi.vip/
+      + ...
+    React技术栈
+      + antd pro  https://pro.ant.design/zh-CN/
+        免费版：react + umi
+      + ...
+  + 也可以从零开始搭建一个适合自己需求的框架
+
+2. 构建工程化的项目结构
+  技术栈：vite + vue@3
+  按照官网的提示，去创建一个项目 https://cn.vitejs.dev/
+  安装一些自己需要用到的模块
+    + vue@3 / vue-router@4 / vuex@4
+    + axios / blueimp-md5 / lodash
+    + ant-design-vue / @ant-design/icons-vue
+    + 实现局部滚动：better-scroll
+    + 实现可视化图表：Echarts、G2plot、...
+    + 如果是移动端的项目，我们需要基于 amfe-flexible / postcss-pxtorem 去实现REM的响应式适配！
+    + ...
+  脚手架的自定义配置  vite.config.js
+    + 需要使用的插件
+      @vitejs/plugin-vue 支持vue3
+      @vitejs/plugin-vue-jsx 支持vue的jsx语法
+      vite-plugin-imp 实现组件库和插件的按需导入的
+      @vitejs/plugin-legacy 处理浏览器兼容的「CSS3+ES6语法+ES6内置API」
+    + 基础配置
+      base
+      resolve
+      需要使用less等预编译语言，直接按照好相关的模块即可
+      ...
+    + 服务和跨域代理
+    + 打包的配置和优化
+    + 其他配置
+      基于less中的modifyVars配置主题样式
+      可以在 babel.config.js 中对babel进行相关的配置
+      其他有助于打包的优化项
+      ...
+
+3. 把没用的文件删一删，并且拷贝一些自己需要的文件「主要操作 SRC 目录了」
+  api 把Axios的二次配置及接口管理搭建起来
+    + http.js
+    + index.js 
+    + ...
+  assets 静态资源文件
+    + images
+    + reset.min.css
+    + utils.js  自己封装的，Lodash中不具备的公用方法
+    + ...
+  components 通用的组件
+    + ...
+  router 路由管理 
+    + index.js  创建路由及导航守卫
+    + routes.js 路由表
+    + ...
+  store 公共状态管理
+    + index.js
+    + ...
+  views 普通组件
+    + ...
+  App.vue 页面入口
+  main.js 程序入口
+  global.js 全局通用的配置
+  ...
+
+4. 项目具体开发前，全局的配置 & 路由的配置
+  全局的配置
+    + 使用 router/store 
+      app.use(router)
+      app.use(store)
+    + 公共样式 & UI组件库的全量(按需)导入「把组件注册为全局组件」
+      import AntdV from 'ant-design-vue'
+      import './assets/reset.min.css'
+      import 'ant-design-vue/dist/antd.css'
+      ...
+      app.use(AntdV)
+    + UI组件库的国际化(汉化)处理  App.vue
+      import zhCN from 'ant-design-vue/es/locale/zh_CN'
+      import dayjs from 'dayjs'  //对组件库中的日期组件进行汉化
+      import 'dayjs/locale/zh-cn'
+      dayjs.locale('zh-cn')
+      ...
+      <a-config-provider :locale="zhCN">
+        <RouterView />
+      </a-config-provider>
+    + 对于Vue2中的mixin操作，我们基于 useXxx 自定义Hook函数去实现
+      const useXxx = function () {
+        // 定义状态
+        // 计算属性
+        // 监听器
+        // 钩子函数
+        ...
+        return { ... }
+      }
+      哪个组件需要用到这些东西，就在哪个组件中导入并执行即可！
+    + 全局的自定义指令
+    + 注册一些自己封装的通用组件
+    + ...
+  路由的配置
+    + 分析路由，把 一级/二级/... 都分析好
+    + 把需要用的组件都先创建好「可以先不写内容」
+    + 在 router/routes.js 中构建路由表「路由懒加载」
+    + 把该设置 <RouterView /> 的地方处理好
+    + ...
+
+-------上述操作结束，则项目的基本框架算是创建好了
+5. 开始团队分配任务，按照相关的需求，去实现对应的功能
+  最需要注意的事情：一定要时刻记住组件的封装
+
+6. 项目开发完
+  + 联调「调用后端的数据接口，实现客户端和服务器通信」
+  + 自测「不要出现硬性的BUG，人性化体验操作的问题可以慢慢解决」
+  + 打包&部署到测试服务器，交给测试检测
+  + 测试反馈&BUG修改「前端需要掌握一个能力：快速定位问题的所属」
+  + ...
+  + 打包&部署到正式的服务器「需要掌握 linux + nginx 操作系统」
