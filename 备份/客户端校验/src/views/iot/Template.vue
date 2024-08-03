@@ -7,7 +7,7 @@ import TemplateType from './TemplateType'
 import cloneDeep from 'lodash/cloneDeep'
 import useBasicHook from '@/hook'
 const { computed, store, onBeforeMount, reactive, API, ref, message } = useBasicHook()
-
+// test git?
 /* 表格列的配置项 */
 const columns = [{
     title: '名称',
