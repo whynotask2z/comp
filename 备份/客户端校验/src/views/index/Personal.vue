@@ -76,6 +76,36 @@ export default {
         };
     }
 };
+
+
+const backendData = [
+    { parentID: 1, result: { id: 1, key: 2, name: "3" } },
+    { parentID: 2, result: { id: 1, key: 2, name: "3" } },
+    { parentID: 5, result: { id: 2, key: 2, name: "9" } }
+];
+
+// 手上的数据
+const myData = [
+    { id: 1, key: 2, name: "3" },
+    { id: 1, key: 2, name: "3" }
+];
+
+// 创建一个结果数组
+const result = myData.map(item => {
+    // 找到与当前项name匹配的backendData中的项
+    const foundItem = backendData.find(data => data.result.name === item.name);
+
+    // 如果找到了，就添加parentID属性
+    if (foundItem) {
+        return { ...item, parentID: foundItem.parentID };
+    }
+
+    // 如果没有找到，返回原始项
+    return item;
+});
+
+// 输出结果
+console.log(result);
 </script>
   
 <style>
