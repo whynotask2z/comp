@@ -106,6 +106,24 @@ const result = myData.map(item => {
 
 // 输出结果
 console.log(result);
+
+
+
+
+//---------------
+
+
+// 扁平化数据并将parentID赋值给result
+const flattenedData = backendData.map(item => {
+    // 创建一个新的对象，将parentID和result合并
+    return {
+        ...item.result,
+        parentID: item.parentID
+    };
+});
+
+// 输出结果
+console.log(flattenedData);
 </script>
   
 <style>
